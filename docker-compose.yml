@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  master:
+    image: "mysql:5.7"
+    volumes:
+      - "./master.cnf:/etc/mysql/mysql.conf.d"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    networks: 
+      - replication
+  slave:
+    image: "mysql:5.7"
+    volumes:
+      - "./slave.cnf:/etc/mysql/mysql.conf.d"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    networks: 
+      - replication
+    depends_on:
+      - master
+
+networks:
+  replication:
+    driver: "bridge"

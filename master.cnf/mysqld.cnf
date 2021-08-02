@@ -1,0 +1,8 @@
+[mysqld]
+server-id = 1
+log-bin = binary_log
+sync_binlog = 1
+binlog_cache_size = 5M
+max_binlog_size = 512M
+expire_logs_days = 14
+log-bin-trust-function-creators = 1
