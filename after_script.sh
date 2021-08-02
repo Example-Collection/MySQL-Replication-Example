@@ -17,7 +17,9 @@ MASTER_QUERY_HEAD=${MASTER_QUERY_HEAD:3:(-2)}
 MASTER_IP=$(docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" mysql-replication_master_1)
 
 SET_MASTER_QUERY=$MASTER_QUERY_HEAD,"master_host=""'"$MASTER_IP"'","master_port=3306","master_user='repl_user', master_password='slavepass'"
-echo $SET_MASTER_QUERY
+
+## cleanup
+rm master_data.sql
 
 ## RUN SET MASTER QUERY
 docker exec -it mysql-replication_slave_1 mysql -u root -e "$SET_MASTER_QUERY"
